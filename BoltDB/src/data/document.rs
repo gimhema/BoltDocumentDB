@@ -2,13 +2,14 @@ use std::{collections::HashMap, hash::Hash};
 use serde_json::{Value, Error};
 
 pub struct BoltDocument {
-    document : HashMap<i64, BoltDataObject>
+    document : HashMap<i64, BoltDataObject>,
+    top_key : i64
 }
 
 impl BoltDocument {
     
     pub fn new() -> Self {
-        return BoltDocument{document : HashMap::new()}
+        return BoltDocument{document : HashMap::new(), top_key : 0}
     }
 
     pub fn create_object(&mut self, query : String) {
@@ -17,7 +18,9 @@ impl BoltDocument {
 
         match parsed_result {
             Ok(parsed) => {
-                self.document.insert(0, BoltDataObject::new(parsed));
+                self.top_key += 1;
+                self.document.insert(self.top_key.clone(), BoltDataObject::new(parsed));
+                
             }
             Err(e) => {
                 println!("Failed to parse JSON: {}", e);
