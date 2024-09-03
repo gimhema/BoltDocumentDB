@@ -25,7 +25,7 @@ impl BoltDocumentBundle {
         }
     }
 
-    pub fn delete_object_in_document(&mut self, docs_name : String, key : i64,  merge_query : String) {
+    pub fn delete_object_in_document(&mut self, docs_name : String, key : i64) {
         if let Some(document) = self.document_bundle.get_mut(&docs_name) {
             // Try to get the object from the document by its key
             document.delete_object(key);
