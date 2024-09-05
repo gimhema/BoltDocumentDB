@@ -3,12 +3,13 @@ use super::document::*;
 
 
 pub struct BoltDocumentBundle {
+    name : String,
     document_bundle : HashMap<String, BoltDocument>
 }
 
 impl BoltDocumentBundle {
-    pub fn new() -> Self {
-        return BoltDocumentBundle{document_bundle: HashMap::new()}
+    pub fn new(_name : String) -> Self {
+        return BoltDocumentBundle{name : _name, document_bundle: HashMap::new()}
     }
 
     pub fn add_object_to_document(&mut self, docs_name : String, query : String) {

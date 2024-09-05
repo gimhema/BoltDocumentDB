@@ -14,8 +14,23 @@ impl BoldtDataManager {
         return BoldtDataManager{db_map :HashMap::new()}
     }
 
+    pub fn create_db_(&mut self) {
+        
+    }
+
+    pub fn restore_db(&mut self) {
+        
+    }
+
+    pub fn backup_db(&mut self) {
+
+    }
+
     pub fn new_doc_bundle(&mut self, bundle_name : String) {
-        self.db_map.insert(bundle_name, BoltDocumentBundle::new());
+
+        let mut _bundle_name = bundle_name.clone();
+
+        self.db_map.insert(bundle_name, BoltDocumentBundle::new(_bundle_name));
     }
 
     // document bundle crud
