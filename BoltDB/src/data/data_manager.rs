@@ -4,14 +4,14 @@ use super::doc_bundle::*;
 use super::document::*;
 
 
-struct BoldtDataManager {
+pub struct BoltDataManager {
     db_map : HashMap<String, BoltDocumentBundle>
 }
 
-impl BoldtDataManager {
+impl BoltDataManager {
 
     pub fn new() -> Self {
-        return BoldtDataManager{db_map :HashMap::new()}
+        return BoltDataManager{db_map :HashMap::new()}
     }
 
     pub fn restore_doc_bundle(&mut self) {
