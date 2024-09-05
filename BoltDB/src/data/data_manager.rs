@@ -14,15 +14,11 @@ impl BoldtDataManager {
         return BoldtDataManager{db_map :HashMap::new()}
     }
 
-    pub fn create_db_(&mut self) {
+    pub fn restore_doc_bundle(&mut self) {
         
     }
 
-    pub fn restore_db(&mut self) {
-        
-    }
-
-    pub fn backup_db(&mut self) {
+    pub fn backup_doc_bundle(&mut self) {
 
     }
 

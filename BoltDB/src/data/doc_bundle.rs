@@ -4,12 +4,13 @@ use super::document::*;
 
 pub struct BoltDocumentBundle {
     name : String,
-    document_bundle : HashMap<String, BoltDocument>
+    document_bundle : HashMap<String, BoltDocument>,
+    data_path : String
 }
 
 impl BoltDocumentBundle {
     pub fn new(_name : String) -> Self {
-        return BoltDocumentBundle{name : _name, document_bundle: HashMap::new()}
+        return BoltDocumentBundle{name : _name, document_bundle: HashMap::new(), data_path : "".to_string()}
     }
 
     pub fn add_object_to_document(&mut self, docs_name : String, query : String) {
@@ -42,5 +43,20 @@ impl BoltDocumentBundle {
         // Return None if the document or object is not found
         None
     }
+
+    pub fn get_data_path(&self) -> String {
+        return self.data_path.clone()
+    }
+
+    pub fn set_data_path(&mut self, _path : String) {
+        self.data_path = _path;
+    }
     
+    pub fn save_db_as_json(&mut self) {
+
+    }
+
+    pub fn load_db_from_json(&mut self) {
+        
+    }
 }
