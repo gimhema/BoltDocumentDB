@@ -14,6 +14,14 @@ impl BoltDataManager {
         return BoltDataManager{db_map :HashMap::new()}
     }
 
+    // document bundle control
+    pub fn new_doc_bundle(&mut self, bundle_name : String) {
+
+        let mut _bundle_name = bundle_name.clone();
+
+        self.db_map.insert(bundle_name, BoltDocumentBundle::new(_bundle_name));
+    }
+
     pub fn restore_doc_bundle(&mut self) {
         
     }
@@ -22,14 +30,11 @@ impl BoltDataManager {
 
     }
 
-    pub fn new_doc_bundle(&mut self, bundle_name : String) {
-
-        let mut _bundle_name = bundle_name.clone();
-
-        self.db_map.insert(bundle_name, BoltDocumentBundle::new(_bundle_name));
+    pub fn remove_doc_bundle(&mut self) {
+        
     }
 
-    // document bundle crud
+    // data control
     pub fn create(&mut self, bundle_name : String, docs_name : String, query : String) {
         if let Some(bundle) = self.db_map.get_mut(&docs_name) {
             bundle.add_object_to_document(docs_name, query);

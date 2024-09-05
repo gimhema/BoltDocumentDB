@@ -7,9 +7,7 @@ use crate::data::*;
 // Main Process
 
 struct BoltAgent {
-
     dataManager : BoltDataManager
-
 }
 
 impl BoltAgent {
