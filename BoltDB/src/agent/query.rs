@@ -54,4 +54,27 @@ impl BoltInterpreter {
     pub fn new() -> Self {
         return BoltInterpreter { input_query : "".to_string() }
     }
+
+    pub fn set_input_query(&mut self, _query : String) {
+        self.input_query = _query;
+    }
+
+    pub fn parse(&mut self) -> QueryResult {
+        let mut _result = 
+        QueryResult::new(QueryType::NONE, "".to_string(), "".to_string(), 0, "".to_string());
+
+        let mut _query = self.input_query.clone();
+
+
+
+        return _result
+    }
+
+    pub fn parse_prefix(&mut self, _prefix : String)  -> QueryType {
+        let mut _result = QueryType::NONE;
+
+        
+
+        return _result
+    }
 }
