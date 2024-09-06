@@ -59,21 +59,43 @@ impl BoltInterpreter {
         self.input_query = _query;
     }
 
+    fn get_first_word<'a>(&mut self, s: &'a str) -> &'a str {
+        s.split_whitespace().next().unwrap_or("")
+    }
+    
+
     pub fn parse(&mut self) -> QueryResult {
         let mut _result = 
         QueryResult::new(QueryType::NONE, "".to_string(), "".to_string(), 0, "".to_string());
 
         let mut _query = self.input_query.clone();
+    
+        let mut _prefix = self.get_first_word(_query.as_str());
 
-
+        let mut _queryType = self.parse_prefix(_prefix.to_string());
+        _result.query_type = _queryType;
 
         return _result
     }
 
+    // fn first_word(input: &str) -> &str {
+    //     input.split_whitespace().next().unwrap_or("")
+    // }
+
     pub fn parse_prefix(&mut self, _prefix : String)  -> QueryType {
         let mut _result = QueryType::NONE;
 
-        
+        match _prefix.as_str() {
+            "new" => _result = QueryType::NEW,
+            "restore" => _result = QueryType::NEW,
+            "backup" => _result = QueryType::BACKUP,
+            "remove" => _result = QueryType::REMOVE,
+            "create" => _result = QueryType::CREATE,
+            "read" => _result = QueryType::READ,
+            "update" => _result = QueryType::UPDATE,
+            "delete" => _result = QueryType::DELETE,
+            _ => _result = QueryType::NONE,
+        }
 
         return _result
     }
