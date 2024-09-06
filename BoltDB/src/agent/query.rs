@@ -62,6 +62,10 @@ impl BoltInterpreter {
     fn get_first_word<'a>(&mut self, s: &'a str) -> &'a str {
         s.split_whitespace().next().unwrap_or("")
     }
+
+    fn get_divided_words<'a>(&mut self, s: &'a str) -> Vec<&'a str> {
+        s.split_whitespace().collect()
+    }
     
 
     pub fn parse(&mut self) -> QueryResult {
@@ -70,10 +74,23 @@ impl BoltInterpreter {
 
         let mut _query = self.input_query.clone();
     
-        let mut _prefix = self.get_first_word(_query.as_str());
+        let mut _splited = self.get_divided_words(_query.as_str());
 
+        let mut _prefix = _splited[0];
         let mut _queryType = self.parse_prefix(_prefix.to_string());
+        
+        // <BUNDLE_NALE> <DOCMUENT_NAME> <KEY> <JSON_QUERY>
         _result.query_type = _queryType;
+        _result.bundle_name = _splited[1].to_string();
+        _result.document_name = _splited[2].to_string();
+
+        // _result.key = _splited[3].to_string();
+        match _splited[3].to_string().parse::<i64>() {
+            Ok(n) => _result.key = n,
+            Err(e) => _result.key = 0,
+        }
+
+        _result.json_query = _splited[4].to_string();
 
         return _result
     }
