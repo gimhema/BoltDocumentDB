@@ -78,10 +78,6 @@ impl BoltInterpreter {
         return _result
     }
 
-    // fn first_word(input: &str) -> &str {
-    //     input.split_whitespace().next().unwrap_or("")
-    // }
-
     pub fn parse_prefix(&mut self, _prefix : String)  -> QueryType {
         let mut _result = QueryType::NONE;
 
