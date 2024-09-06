@@ -12,6 +12,7 @@
 // update <BUNDLE_NALE> <DOCMUENT_NAME> <KEY> <JSON_QUERY>
 // delete <BUNDLE_NALE> <DOCMUENT_NAME> <KEY>
 
+#[derive(Clone)]
 pub enum QueryType {
     NONE,
     NEW,
@@ -44,6 +45,26 @@ impl QueryResult {
                 query_type: _query_type, bundle_name: _bundle_name,
                  document_name: _document_name, key: _key, json_query: _json_query }
         }
+
+    pub fn get_query_type(&self) -> QueryType {
+        return self.query_type.clone()
+    }
+
+    pub fn get_bundle_name(&self) -> String {
+        return self.bundle_name.clone()
+    }
+
+    pub fn get_document_name(&self) -> String {
+        return self.document_name.clone()
+    }
+
+    pub fn get_key(&self) -> i64 {
+        return self.key.clone()
+    }
+
+    pub fn get_json_query(&self) -> String {
+        return self.json_query.clone()
+    }
 }
 
 pub struct BoltInterpreter {
@@ -100,7 +121,7 @@ impl BoltInterpreter {
 
         match _prefix.as_str() {
             "new" => _result = QueryType::NEW,
-            "restore" => _result = QueryType::NEW,
+            "restore" => _result = QueryType::RESTORE,
             "backup" => _result = QueryType::BACKUP,
             "remove" => _result = QueryType::REMOVE,
             "create" => _result = QueryType::CREATE,
