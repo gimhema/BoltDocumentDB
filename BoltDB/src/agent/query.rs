@@ -37,7 +37,9 @@ pub struct QueryResult {
     bundle_name : String,
     document_name : String,
     key : i64,
-    json_query : String
+    json_query : String,
+    json_key : String,
+    json_value : String
 }
 
 impl QueryResult {
@@ -46,10 +48,13 @@ impl QueryResult {
         _bundle_name : String,
         _document_name : String,
         _key : i64,
-        _json_query : String) -> Self {
+        _json_query : String,
+        _json_key : String,
+        _json_value : String) -> Self {
             return QueryResult { 
                 query_type: _query_type, bundle_name: _bundle_name,
-                 document_name: _document_name, key: _key, json_query: _json_query }
+                 document_name: _document_name, key: _key, json_query: _json_query,
+                 json_key : _json_key, json_value : _json_value }
         }
 
     pub fn get_query_type(&self) -> QueryType {
@@ -70,6 +75,14 @@ impl QueryResult {
 
     pub fn get_json_query(&self) -> String {
         return self.json_query.clone()
+    }
+
+    pub fn get_json_key(&self) -> String {
+        return self.json_key.clone()
+    }
+
+    pub fn get_json_value(&self) -> String {
+        return self.json_value.clone()
     }
 }
 
@@ -97,7 +110,9 @@ impl BoltInterpreter {
 
     pub fn parse(&mut self) -> QueryResult {
         let mut _result = 
-        QueryResult::new(QueryType::NONE, "".to_string(), "".to_string(), 0, "".to_string());
+        QueryResult::new(QueryType::NONE, "".to_string(), 
+        "".to_string(), 0, "".to_string(),
+        "".to_string(), "".to_string());
 
         let mut _query = self.input_query.clone();
     
@@ -118,6 +133,9 @@ impl BoltInterpreter {
         }
 
         _result.json_query = _splited[4].to_string();
+
+        _result.json_key = _splited[5].to_string();
+        _result.json_value = _splited[6].to_string();
 
         return _result
     }
