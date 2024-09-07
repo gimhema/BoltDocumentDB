@@ -73,6 +73,12 @@ impl BoltAgent {
                     _result.get_document_name().clone(), 
                     _result.get_key().clone());
             },
+            query::QueryType::SET => {
+                println!("SET");
+            },
+            query::QueryType::GET => {
+                println!("GET");
+            },
             _ => println!("Parse Error"),
         }
     }

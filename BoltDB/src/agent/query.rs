@@ -12,6 +12,10 @@
 // update <BUNDLE_NALE> <DOCMUENT_NAME> <KEY> <JSON_QUERY>
 // delete <BUNDLE_NALE> <DOCMUENT_NAME> <KEY>
 
+// data object control detail
+// get <BUNDLE_NALE> <DOCMUENT_NAME> <KEY> <JSON_KEY>
+// set <BUNDLE_NALE> <DOCMUENT_NAME> <KEY> <JSON_KEY> <JSON_VALUE>
+
 #[derive(Clone)]
 pub enum QueryType {
     NONE,
@@ -23,6 +27,8 @@ pub enum QueryType {
     READ,
     UPDATE,
     DELETE,
+    SET,
+    GET,
     END
 }
 
@@ -128,6 +134,8 @@ impl BoltInterpreter {
             "read" => _result = QueryType::READ,
             "update" => _result = QueryType::UPDATE,
             "delete" => _result = QueryType::DELETE,
+            "set" => _result = QueryType::SET,
+            "get" => _result = QueryType::GET,
             _ => _result = QueryType::NONE,
         }
 

@@ -63,4 +63,14 @@ impl BoltDataManager {
         None
     }
 
+    pub fn get_data(&mut self, bundle_name : String, 
+        docs_name : String, key : i64, json_key : String) -> String {
+        return "".to_string();
+    }
+
+    pub fn set_data(&mut self, bundle_name : String, 
+        docs_name : String, key : i64, json_key : String, json_value : String){
+        
+    }
+
 }
