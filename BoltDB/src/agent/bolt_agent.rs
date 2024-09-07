@@ -75,9 +75,20 @@ impl BoltAgent {
             },
             query::QueryType::SET => {
                 println!("SET");
+                self.data_manager.set_data(
+                    _result.get_bundle_name().clone(), 
+                    _result.get_document_name().clone(), 
+                    _result.get_key().clone(), 
+                    _result.get_json_key().clone(),
+                    _result.get_json_value().clone());
             },
             query::QueryType::GET => {
                 println!("GET");
+                self.data_manager.get_data(
+                    _result.get_bundle_name().clone(), 
+                    _result.get_document_name().clone(), 
+                    _result.get_key().clone(), 
+                    _result.get_json_key().clone());
             },
             _ => println!("Parse Error"),
         }
