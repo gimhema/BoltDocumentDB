@@ -19,10 +19,21 @@ impl BoltAgent {
             query_interpreter: BoltInterpreter::new() }
     }
 
+    pub fn set_input_query(&mut self, _query : String) {
+        self.query_interpreter.set_input_query(_query);
+    }
+
     pub fn wait(&mut self) {
         
         loop {
             // wait query . . .
+            if false == self.query_interpreter.empty_input() {
+                let _query = self.query_interpreter.get_input_query();
+                
+                self.interprete(_query);
+
+                self.query_interpreter.clear_input();
+            }
         }
         
     }

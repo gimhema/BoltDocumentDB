@@ -99,6 +99,14 @@ impl BoltInterpreter {
         self.input_query = _query;
     }
 
+    pub fn get_input_query(&self) -> String {
+        return self.input_query.clone()
+    }
+
+    pub fn clear_input(&mut self) {
+        self.input_query.clear();
+    }
+
     fn get_first_word<'a>(&mut self, s: &'a str) -> &'a str {
         s.split_whitespace().next().unwrap_or("")
     }
@@ -158,5 +166,14 @@ impl BoltInterpreter {
         }
 
         return _result
+    }
+
+    pub fn empty_input(&self) -> bool {
+        
+        if self.input_query.is_empty() {
+            return true
+        }
+
+        return false
     }
 }
