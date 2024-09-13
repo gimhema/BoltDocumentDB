@@ -72,6 +72,16 @@ impl BoltDocument {
             }
         }
     }
+
+    pub fn get_data(&self, _json_key : String) -> String {
+        let _result = "".to_string();
+
+        return _result
+    }
+
+    pub fn set_data(&mut self, _json_key : String, _value : String) {
+        
+    }
 }
 
 pub struct BoltDataObject {
