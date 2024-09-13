@@ -44,6 +44,16 @@ impl BoltDocumentBundle {
         None
     }
 
+    pub fn get_data(&mut self, docs_name: String, key: i64, _json_key : String) -> String {
+        let _result = "".to_string();
+
+        return _result
+    }
+
+    pub fn set_data(&mut self, docs_name: String, key: i64, _json_key : String, _value : String) {
+        
+    }
+
     pub fn get_data_path(&self) -> String {
         return self.data_path.clone()
     }
