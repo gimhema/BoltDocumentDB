@@ -44,6 +44,12 @@ impl BoltDocumentBundle {
         None
     }
 
+    pub fn set_object_in_document(&mut self, docs_name : String, key : i64, json_key : String, json_value : String) {
+        if let Some(document) = self.document_bundle.get_mut(&docs_name) {
+            document.set_data(key, json_key, json_value);
+        }
+    }
+
     pub fn get_data(&mut self, docs_name: String, key: i64, _json_key : String) -> String {
         let _result = "".to_string();
 

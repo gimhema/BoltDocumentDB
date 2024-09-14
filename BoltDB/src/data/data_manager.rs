@@ -68,14 +68,11 @@ impl BoltDataManager {
         
         let mut _result = "".to_string();
 
-
         if let Some(bundle) = self.db_map.get_mut(&docs_name) {
             let _dataObj = bundle.get_object_from_document(docs_name, key);
 
-            // _result = _dataObj.unwrap().
+            _result = _dataObj.unwrap().get_obj(json_key);
         }
-
-
 
         return _result;
     }
@@ -83,6 +80,13 @@ impl BoltDataManager {
     pub fn set_data(&mut self, bundle_name : String, 
         docs_name : String, key : i64, json_key : String, json_value : String){
         
+
+            if let Some(bundle) = self.db_map.get_mut(&docs_name) {
+                
+                bundle.set_object_in_document(docs_name, key, json_key, json_value);
+
+            }
+
     }
 
 }
