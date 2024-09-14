@@ -92,4 +92,22 @@ impl BoltDataObject {
     pub fn new(_data : Value) -> Self {
         return BoltDataObject { data: _data }
     }
+
+    pub fn get(&self, key: String) -> String {
+        if let Value::Object(ref map) = self.data {
+            // 키에 해당하는 값을 가져와서 String으로 변환
+            if let Some(value) = map.get(&key) {
+                return value.to_string();
+            }
+        }
+        // 키가 없거나 값이 Object가 아닐 경우 빈 문자열 반환
+        "".to_string()
+    }
+
+    pub fn set(&mut self, key: String, value: String) {
+        if let Value::Object(ref mut map) = self.data {
+            // 기존 맵에 새로운 key-value 쌍 추가
+            map.insert(key, Value::String(value));
+        }
+    }
 }

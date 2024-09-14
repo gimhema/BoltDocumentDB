@@ -68,7 +68,14 @@ impl BoltDataManager {
         
         let mut _result = "".to_string();
 
-        
+
+        if let Some(bundle) = self.db_map.get_mut(&docs_name) {
+            let _dataObj = bundle.get_object_from_document(docs_name, key);
+
+            // _result = _dataObj.unwrap().
+        }
+
+
 
         return _result;
     }
