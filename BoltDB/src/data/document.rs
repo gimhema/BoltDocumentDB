@@ -73,14 +73,22 @@ impl BoltDocument {
         }
     }
 
-    pub fn get_data(&self, _json_key : String) -> String {
-        let _result = "".to_string();
+    pub fn get_data(&self, _docs_key : i64, _json_key : String) -> String {
+        let mut _result = "".to_string();
+
+        _result = self.document.get(&_docs_key).unwrap().get_obj(_json_key.clone());
 
         return _result
     }
 
-    pub fn set_data(&mut self, _json_key : String, _value : String) {
+    pub fn set_data(&mut self, _docs_key : i64, _json_key : String, _value : String) {
         
+        if let Some(data_obj) = self.document.get_mut(&_docs_key) {
+
+            data_obj.set_obj(_json_key.clone(), _value.clone());
+
+        }
+
     }
 }
 
@@ -93,7 +101,7 @@ impl BoltDataObject {
         return BoltDataObject { data: _data }
     }
 
-    pub fn get(&self, key: String) -> String {
+    pub fn get_obj(&self, key: String) -> String {
         if let Value::Object(ref map) = self.data {
             // 키에 해당하는 값을 가져와서 String으로 변환
             if let Some(value) = map.get(&key) {
@@ -104,7 +112,7 @@ impl BoltDataObject {
         "".to_string()
     }
 
-    pub fn set(&mut self, key: String, value: String) {
+    pub fn set_obj(&mut self, key: String, value: String) {
         if let Value::Object(ref mut map) = self.data {
             // 기존 맵에 새로운 key-value 쌍 추가
             map.insert(key, Value::String(value));
