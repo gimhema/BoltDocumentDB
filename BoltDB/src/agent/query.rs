@@ -148,10 +148,10 @@ impl BoltInterpreter {
         return _result
     }
 
-    pub fn parse_prefix(&mut self, _prefix : String)  -> QueryType {
+    pub fn parse_prefix(&mut self, _prefix: String) -> QueryType {
         let mut _result = QueryType::NONE;
-
-        match _prefix.as_str() {
+        
+        match _prefix.to_lowercase().as_str() {
             "new" => _result = QueryType::NEW,
             "restore" => _result = QueryType::RESTORE,
             "backup" => _result = QueryType::BACKUP,
@@ -164,9 +164,10 @@ impl BoltInterpreter {
             "get" => _result = QueryType::GET,
             _ => _result = QueryType::NONE,
         }
-
-        return _result
+    
+        _result
     }
+    
 
     pub fn empty_input(&self) -> bool {
         
