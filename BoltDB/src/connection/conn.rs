@@ -1,4 +1,3 @@
-
 use std::str::from_utf8;
 use mio::event::Event;
 use std::sync::Mutex;
@@ -7,9 +6,10 @@ use std::time::Duration;
 use std::{net, thread, time};
 use std::sync::{RwLock, Arc, RwLockReadGuard};
 use mio::net::{TcpListener, TcpStream};
-
 use mio::{Events, Interest, Poll, Registry, Token};
 use std::io::{self, Read, Write};
+
+use super::security::*;
 
 const SERVER: Token = Token(0);
 const SERVER_TICK: u64 = 1000;
@@ -18,11 +18,12 @@ const SERVER_TICK: u64 = 1000;
 pub struct BoltDBConnection {
     ip_address : String,
     port : i64,
+    connections : HashMap<Token, TcpStream>
 }
 
 impl BoltDBConnection {
     pub fn new() -> Self {
-        return BoltDBConnection{ ip_address : "".to_string(), port : 0 }
+        return BoltDBConnection{ ip_address : "".to_string(), port : 0, connections : HashMap::new() }
     }
 
     pub fn init_connect_info(&mut self, _ip_address : String, _port : i64) {
