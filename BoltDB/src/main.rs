@@ -22,8 +22,6 @@ fn main() {
     
     print!("Start Bolt DB ");
 
-    // let mut bolt_agent = BoltAgent::new();
-    // bolt_agent.wait();
     BoltAgent::get_instance().write().unwrap().wait();
 
 }
