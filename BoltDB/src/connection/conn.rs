@@ -30,7 +30,7 @@ impl BoltDBConnection {
         self.port = _port;
     }
 
-    pub fn wait() -> io::Result<()> 
+    pub fn wait(&mut self) -> io::Result<()> 
     {
         env_logger::init();
 
