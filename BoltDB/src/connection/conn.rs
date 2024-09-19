@@ -87,13 +87,12 @@ impl BoltDBConnection {
                             token,
                             Interest::READABLE.add(Interest::WRITABLE),
                         )?;
-                        println!("Add New Player");
+                        println!("Add New User");
                         let mut sendConnect = connection;
                         
                         // get_connection_handler().write().unwrap().new_tcp_connection(sendConnect, token);
                         // get_user_connection_info().write().unwrap().push(token);
 
-                        println!("SendGamePacket End");
                     },
                     token => {
 
