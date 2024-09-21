@@ -10,6 +10,8 @@ use mio::net::{TcpListener, TcpStream};
 use mio::{Events, Interest, Poll, Registry, Token};
 use std::io::{self, Read, Write};
 
+use crate::BoltAgent;
+
 use super::security::*;
 
 const SERVER: Token = Token(0);
@@ -179,7 +181,7 @@ fn handle_connection_event(
 
                 let vec_of_bytes: Vec<u8> = received_data.to_vec();
                 let recvMsg = String::from(from_utf8(received_data).unwrap());
-                // listen_event(recvMsg);
+                listen_event(recvMsg);
                 
             } else {
                 println!("Received (none UTF-8) data: {:?}", received_data);
@@ -207,5 +209,9 @@ fn would_block(err: &io::Error) -> bool {
 
 fn interrupted(err: &io::Error) -> bool {
     err.kind() == io::ErrorKind::Interrupted
+}
+
+fn listen_event(message : String) {
+    BoltAgent::get_instance().write().unwrap().set_input_query(message);
 }
 
