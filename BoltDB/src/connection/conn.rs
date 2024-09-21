@@ -1,3 +1,4 @@
+use std::hash::Hash;
 use std::str::from_utf8;
 use mio::event::Event;
 use std::sync::Mutex;
@@ -18,12 +19,13 @@ const SERVER_TICK: u64 = 1000;
 pub struct BoltDBConnection {
     ip_address : String,
     port : i64,
-    connections : HashMap<Token, TcpStream>
+    connections : HashMap<Token, TcpStream>,
+    users : HashMap<Token, BoltDBUser>
 }
 
 impl BoltDBConnection {
     pub fn new() -> Self {
-        return BoltDBConnection{ ip_address : "".to_string(), port : 0, connections : HashMap::new() }
+        return BoltDBConnection{ ip_address : "".to_string(), port : 0, connections : HashMap::new(), users : HashMap::new() }
     }
 
     pub fn init_connect_info(&mut self, _ip_address : String, _port : i64) {
@@ -89,38 +91,39 @@ impl BoltDBConnection {
                         )?;
                         println!("Add New User");
                         let mut sendConnect = connection;
-                        
-                        // get_connection_handler().write().unwrap().new_tcp_connection(sendConnect, token);
-                        // get_user_connection_info().write().unwrap().push(token);
+
+                        let _userToken = token.clone();
+                        self.users.insert(_userToken, 
+                            BoltDBUser::new("test".to_string(), "test".to_string(), _userToken)
+                        );
 
                     },
                     token => {
 
                         let done = {
-                            // let mut handler = get_connection_handler().write().unwrap();
-                            // if let Some(connection) = handler.get_tcp_connection_by_token(token) {
-                            //     println!("Handle Connection Event");
-                            //     handle_connection_event(poll.registry(), connection, event)?
-                            // } else {
-                            //     // Sporadic events happen, we can safely ignore them.
-                            //     false
-                            // }
+                            // let mut handler = self.connections.get(&token).unwrap();
+                            if let Some(connection) = self.connections.get_mut(&token) {
+                                println!("Handle Connection Event");
+                                handle_connection_event(poll.registry(), connection, event)?
+                            } else {
+                                // Sporadic events happen, we can safely ignore them.
+                                false
+                            }
                         };
 
 
-                       //if done {
-                       //         println!("Disconn search . . .");
-                       //         if let Some(mut connection)  = 
-                       //         get_connection_handler().write().unwrap().get_tcp_connection_by_token(token)
-                       //         {
-                       //             println!("User Disconnected . . 1");
-                       //             poll.registry().deregister(connection);
-                       //             
-                       //             get_connection_handler().write().unwrap().del_tcp_connection(token);
-                       //             // get_send_connection_handler().write().unwrap().del_tcp_connection(token);
-                       //             // self.remove_connection(token);
-                       //         }
-                       //     }
+                       if done {
+                                println!("Disconn search . . .");
+                                if let Some(mut connection)  = 
+                                self.connections.get_mut(&token)
+                                {
+                                    println!("User Disconnected . . 1");
+                                    poll.registry().deregister(connection);
+                                    
+                                    self.connections.remove(&token);
+                                    self.users.remove(&token);
+                                }
+                            }
                     }
                 }
                 // thread::sleep(Duration::from_secs(1));
